@@ -1,15 +1,14 @@
 package com.is.films.movie_rentables.controller;
 
+import com.is.films.movie_rentables.command.MovieCommand;
 import com.is.films.movie_rentables.dto.MovieDTO;
 import com.is.films.movie_rentables.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,20 +26,25 @@ public class MovieController {
         return movieService.findAll();
     }
 
-    /*
+    @GetMapping("/actors/{id}")
+    public ResponseEntity<List<MovieDTO>> getMovieByActorId(@PathVariable final Long id) {
+        return new ResponseEntity(movieService.findByActors(id).stream().map(movieDTO -> ResponseEntity.status(HttpStatus.OK)
+                .body(movieDTO)), HttpStatus.OK);
+    }
     @GetMapping("/{id}")
-    public ResponseEntity<MovieDTO> getMovieByActorId(@PathVariable final Long id) {
-        return movieService.findById(id).map(movieDTO -> ResponseEntity.status(HttpStatus.OK)
+    public ResponseEntity<MovieDTO> getMovieById(@PathVariable final Long id) {
+        return movieService.findFilmById(id).map(movieDTO -> ResponseEntity.status(HttpStatus.OK)
                 .body(movieDTO)).orElseGet(() -> ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build());
     }
-    */
-    @GetMapping("/{id}")
-    public ResponseEntity<List<MovieDTO>> getMovieByActorId(@PathVariable final Long id) {
-       // List<MovieDTO> movies = movieService.findByActors(id);
-        return new ResponseEntity(movieService.findByActors(id).stream().map(movieDTO -> ResponseEntity.status(HttpStatus.OK)
-                .body(movieDTO)),HttpStatus.OK);
+
+    @PostMapping
+    public ResponseEntity<MovieDTO> save(@Valid @RequestBody final MovieCommand movieCommand) {
+        return movieService.saveMovie(movieCommand).map(studentDTO -> ResponseEntity.status(HttpStatus.CREATED)
+                .body(studentDTO)).orElseGet(() -> ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .build());
     }
 
 }

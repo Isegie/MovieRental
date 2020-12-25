@@ -15,7 +15,7 @@ import java.util.Set;
 @ToString
 public class Film implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     private Long id;
     @Getter
@@ -56,7 +56,7 @@ public class Film implements Serializable {
     private String specialFeatures;
     @Getter
     @Setter
-    @Column(name = "fulltext", columnDefinition = "TEXT")
+    @Column(name = "fulltext")
     private String fullText;
     @Getter
     @Setter

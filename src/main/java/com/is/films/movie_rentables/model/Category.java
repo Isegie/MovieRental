@@ -1,9 +1,6 @@
 package com.is.films.movie_rentables.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "category")
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

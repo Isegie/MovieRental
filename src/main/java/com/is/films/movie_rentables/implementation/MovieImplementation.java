@@ -1,8 +1,10 @@
 package com.is.films.movie_rentables.implementation;
 
+import com.is.films.movie_rentables.command.MovieCommand;
 import com.is.films.movie_rentables.dto.MovieDTO;
 import com.is.films.movie_rentables.model.Film;
 import com.is.films.movie_rentables.repository.MovieRepository;
+import com.is.films.movie_rentables.repository.OverrideMovieRepository;
 import com.is.films.movie_rentables.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,16 @@ import java.util.stream.Collectors;
 public class MovieImplementation implements MovieService {
 
     private MovieRepository movieRepository;
+    private OverrideMovieRepository overrideMovieRepository;
 
     @Autowired
     public void setMovieRepository(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
+    }
+
+    @Autowired
+    public void setOverrideMovieRepository(OverrideMovieRepository overrideMovieRepository) {
+        this.overrideMovieRepository = overrideMovieRepository;
     }
 
     @Override
@@ -27,18 +35,27 @@ public class MovieImplementation implements MovieService {
                 .map(this::mapMovieToDto).collect(Collectors.toList());
     }
 
-    /*
-    @Override
-    public Optional<MovieDTO> findByActors(Long id) {
-        return Optional.ofNullable(movieRepository.findById(id)
-                .map(this::mapMovieToDto).stream().findFirst()).orElse(null);
-
-    }
-    */
     @Override
     public List<MovieDTO> findByActors(Long id) {
         List<Film> movies = movieRepository.fetchMoviesByActorsId(id);
         return movies.stream().map(this::mapMovieToDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<MovieDTO> findFilmById(Long id) {
+        return Optional.ofNullable(movieRepository.findFilmById(id).map(this::mapMovieToDto).orElse(null));
+    }
+
+    @Override
+    public Optional<MovieDTO> saveMovie(MovieCommand movieCommand) {
+        return Optional.ofNullable(mapMovieToDto(overrideMovieRepository.
+                save(mapCommandToMovie(movieCommand))));
+    }
+
+    private Film mapCommandToMovie(MovieCommand movieCommand) {
+        return new Film(movieCommand.getMovieTitle(), movieCommand.getMovieDescription(), movieCommand.getReleaseYear(),
+                movieCommand.getRentalDuration(), movieCommand.getRentalRate(), movieCommand.getMovieLength(), movieCommand.getReplacementCost(),
+                movieCommand.getMovieRating(), movieCommand.getSpecialFeatures(), movieCommand.getFullText(), movieCommand.getLastUpdate());
     }
 
     private MovieDTO mapMovieToDto(Film film) {

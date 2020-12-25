@@ -1,9 +1,6 @@
 package com.is.films.movie_rentables.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +11,7 @@ import java.util.Set;
 @Table(name = "language")
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class Language implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

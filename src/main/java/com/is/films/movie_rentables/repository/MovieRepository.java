@@ -3,12 +3,12 @@ package com.is.films.movie_rentables.repository;
 import com.is.films.movie_rentables.model.Film;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository
 public interface MovieRepository extends JpaRepository<Film, Long> {
     List<Film> findAll();
@@ -21,5 +21,7 @@ public interface MovieRepository extends JpaRepository<Film, Long> {
             "f.rating,f.last_update,f.special_features,f.fulltext from film f inner join film_actor fa on f.film_id=fa.film_id\n" +
             "inner join actor ac on ac.actor_id=fa.actor_id where ac.actor_id= :id",nativeQuery = true)
     List<Film> fetchMoviesByActorsId(@RequestParam("id") Long id);
+
+    Optional<Film> findFilmById(Long id);
 
 }
