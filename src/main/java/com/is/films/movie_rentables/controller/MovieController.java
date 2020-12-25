@@ -41,8 +41,8 @@ public class MovieController {
 
     @PostMapping
     public ResponseEntity<MovieDTO> save(@Valid @RequestBody final MovieCommand movieCommand) {
-        return movieService.saveMovie(movieCommand).map(studentDTO -> ResponseEntity.status(HttpStatus.CREATED)
-                .body(studentDTO)).orElseGet(() -> ResponseEntity
+        return movieService.saveMovie(movieCommand).map(movieDTO -> ResponseEntity.status(HttpStatus.CREATED)
+                .body(movieDTO)).orElseGet(() -> ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .build());
     }
