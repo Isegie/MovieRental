@@ -52,7 +52,7 @@ public class Film implements Serializable {
     private String movieRating;
     @Getter
     @Setter
-    @Column(name = "special_features", columnDefinition = "TEXT")
+    @Column(name = "special_features")
     private String specialFeatures;
     @Getter
     @Setter

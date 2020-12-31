@@ -1,6 +1,7 @@
 package com.is.films.movie_rentables.model;
 
 import lombok.*;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.util.List;
 public class Actor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Getter
     @Column(name = "actor_id")
     private Long id;
     @Getter
@@ -29,6 +31,8 @@ public class Actor implements Serializable {
     @Getter
     @Setter
     @Column(name = "last_update")
+    @org.hibernate.annotations.Generated(GenerationTime.ALWAYS)
+
     private LocalDateTime lastUpdate;
     @ManyToMany(targetEntity = Film.class, mappedBy = "actors")
     private List<Film> movies;

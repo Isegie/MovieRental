@@ -9,9 +9,14 @@ import java.util.Optional;
 public interface MovieService {
     List<MovieDTO> findAll();
 
-    List<MovieDTO> findByActors(Long id);
+    List<MovieDTO> findByActorsId(Long id);
 
-    Optional<MovieDTO> findFilmById(Long id);
+    List<MovieDTO> findByActorsName(String actorsFirstName);
+
+    Object[] fetchActorsByMovieName(String movieTitle);
+
+    Optional<MovieDTO> findMovieById(Long id);
 
     Optional<MovieDTO> saveMovie(MovieCommand movieCommand);
+
 }
