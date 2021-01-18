@@ -1,6 +1,7 @@
 package com.is.films.movie_rentables.service;
 
 import com.is.films.movie_rentables.command.MovieCommand;
+import com.is.films.movie_rentables.dto.ActorDTO;
 import com.is.films.movie_rentables.dto.MovieDTO;
 
 import java.util.List;

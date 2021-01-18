@@ -38,12 +38,11 @@ public class MovieController {
                 .body(movieDTO)), HttpStatus.OK);
     }
 
-    @GetMapping("/list/actors/names")
+    @GetMapping("/list/actors/name")
     public ResponseEntity<List<MovieDTO>> getMovieByActorsName(@RequestParam(value = "actorsFirstName", required = true) final String actorsFirstName) {
         return new ResponseEntity(movieService.findByActorsName(actorsFirstName).stream().map(movieDTO -> ResponseEntity.status(HttpStatus.OK)
                 .body(movieDTO)), HttpStatus.OK);
     }
-
 
     @GetMapping("/movies/titles")
     public ResponseEntity<List<Object>> fetchActorsByMovieName(@RequestParam(value = "movieTitle", required = true) final String movieTitle) {

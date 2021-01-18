@@ -3,7 +3,6 @@ package com.is.films.movie_rentables.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 @NoArgsConstructor

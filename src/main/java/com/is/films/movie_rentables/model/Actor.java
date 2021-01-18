@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class Actor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter
-    @Column(name = "actor_id")
+    @Column(name = "actor_id",updatable = false)
     private Long id;
     @Getter
     @Setter
@@ -32,7 +31,6 @@ public class Actor implements Serializable {
     @Setter
     @Column(name = "last_update")
     @org.hibernate.annotations.Generated(GenerationTime.ALWAYS)
-
     private LocalDateTime lastUpdate;
     @ManyToMany(targetEntity = Film.class, mappedBy = "actors")
     private List<Film> movies;

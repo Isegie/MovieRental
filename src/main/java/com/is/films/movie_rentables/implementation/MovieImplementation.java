@@ -50,7 +50,7 @@ public class MovieImplementation implements MovieService {
 
     @Override
     public Object[] fetchActorsByMovieName(String movieTitle) {
-        return movieRepository.fetchActorsByMovieName(movieTitle);
+        return movieRepository.fetchActorsByMovieTitle(movieTitle);
     }
 
     @Override
